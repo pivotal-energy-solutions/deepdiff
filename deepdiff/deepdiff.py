@@ -205,8 +205,10 @@ class DeepDiff(dict):
 
     """
 
-    def __init__(self, t1, t2, ignore_order=False):
+    def __init__(self, t1, t2, ignore_order=False, float_tolerance_pct=0.0, zero_length_str_allow_none=False):
         self.ignore_order = ignore_order
+        self.float_tolerance_pct = float_tolerance_pct
+        self.zero_length_str_allow_none = zero_length_str_allow_none
 
         self.update({"type_changes": [], "dic_item_added": [], "dic_item_removed": [],
                      "values_changed": [], "unprocessed": [], "iterable_item_added": [], "iterable_item_removed": [],
@@ -450,6 +452,26 @@ class DeepDiff(dict):
         if t1 is t2:
             return
 
+        if self.zero_length_str_allow_none and (isinstance(t1, type(None)) and isinstance(t2, strings)):
+            if not len(t2):
+                return
+
+        if self.zero_length_str_allow_none and (isinstance(t1, strings) and isinstance(t2, type(None))):
+            if not len(t1):
+                return
+
+        if isinstance(t1, strings):
+            if re.search(r'^\d+\.\d+$', "{}".format(t1).strip()):
+                t1 = float("{}".format(t1).strip())
+            elif re.search(r'^\d+$', "{}".format(t1).strip()):
+                t1 = int("{}".format(t1).strip())
+
+        if isinstance(t2, strings):
+            if re.search(r'^\d+\.\d+$', "{}".format(t2).strip()):
+                t2 = float("{}".format(t2).strip())
+            elif re.search(r'^\d+$', "{}".format(t2).strip()):
+                t2 = int("{}".format(t2).strip())
+
         if type(t1) != type(t2):
             self["type_changes"].append(
                 self.__get_value_when_type_change(t1, t2) % (parent, self.__gettype(t1), self.__gettype(t2)))
@@ -458,6 +480,19 @@ class DeepDiff(dict):
             self.__diff_str(t1, t2, parent)
 
         elif isinstance(t1, numbers):
+            if self.float_tolerance_pct and isinstance(t1, float):
+                try:
+                    if t1 >= t2:
+                        error_pct = abs((t1 - t2) / t1) * 100
+                    else:
+                        error_pct = abs((t2 - t1) / t2) * 100
+                except ZeroDivisionError:
+                    error_pct = 0 if t1 == t2 and t1 == 0.0 else 1e10
+                if error_pct < self.float_tolerance_pct:
+                    return
+                else:
+                    print("Bad Here we go: {} {} == {}".format(t1, t2, error_pct))
+
             if t1 != t2:
                 self["values_changed"].append("%s: %s ===> %s" % (parent, t1, t2))
 
