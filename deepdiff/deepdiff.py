@@ -480,12 +480,12 @@ class DeepDiff(dict):
             self.__diff_str(t1, t2, parent)
 
         elif isinstance(t1, numbers):
-            if self.float_tolerance_pct and isinstance(t1, float):
+            if self.float_tolerance_pct and isinstance(t1, float) or isinstance(t2, float):
                 try:
                     if t1 >= t2:
-                        error_pct = abs((t1 - t2) / t1) * 100
+                        error_pct = abs((t1 - t2) / float(t1)) * 100
                     else:
-                        error_pct = abs((t2 - t1) / t2) * 100
+                        error_pct = abs((t2 - t1) / float(t2)) * 100
                 except ZeroDivisionError:
                     error_pct = 0 if t1 == t2 and t1 == 0.0 else 1e10
                 if error_pct < self.float_tolerance_pct:
