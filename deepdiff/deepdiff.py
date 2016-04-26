@@ -490,8 +490,8 @@ class DeepDiff(dict):
                     error_pct = 0 if t1 == t2 and t1 == 0.0 else 1e10
                 if error_pct < self.float_tolerance_pct:
                     return
-                else:
-                    print("Bad Here we go: {} {} == {}".format(t1, t2, error_pct))
+                # else:
+                #     print("Bad Here we go: {} {} == {}".format(t1, t2, error_pct))
 
             if t1 != t2:
                 self["values_changed"].append("%s: %s ===> %s" % (parent, t1, t2))
