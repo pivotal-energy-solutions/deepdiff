@@ -13,7 +13,7 @@ from os import path
 
 here = path.abspath(path.dirname(__file__))
 
-from decimal import __version__, __name__
+from deepdiff import __version__, __name__
 
 name = 'pivotal_' + __name__
 base_url = 'https://github.com/pivotal-energy-solutions/deepdiff'
