@@ -8,9 +8,13 @@
 Deep Difference of dictionaries, iterables, strings and other objects. It will recursively look for all the changes.
 Tested on Python 2.7 and 3.4
 
-##Installation
+####  Note:
+_This fork provides for changes specifically around handling rounding in float related fields_
 
-###Install from PyPi:
+
+## Installation
+
+### Install from PyPi:
 
     pip install deepdiff
 
@@ -84,7 +88,7 @@ int, string, dictionary, list, tuple, set, frozenset, OrderedDict, NamedTuple an
 root[4]['b']: 'world' ===> 'world!'
 ```
 
-###String difference 2
+### String difference 2
 
 ```python
 >>> t1 = {1:1, 2:2, 3:3, 4:{"a":"hello", "b":"world!\nGoodbye!\n1\n2\nEnd"}}
@@ -217,27 +221,26 @@ ddiff = DeepDiff(t1, t2, ignore_order=True)
 {}
 ```
 
-##Documentation
+## Documentation
 
 <http://deepdiff.readthedocs.org/en/latest/>
 
-##Changelog
+### Build Process:
+1.  Update the `__version_info__` inside of the application. Commit and push.
+2.  Tag the release with the version. `git tag <version> -m "Release"; git push --tags`
+3.  Build the release `rm -rf dist build *egg-info; python setup.py sdist bdist_wheel`
+4.  Upload the data `twine upload dist/*`
 
-- v0-6-1: fixing iterables with unhashable when order is ignored
-- v0-6-0: Adding unicode support
-- v0-5-9: Adding decimal support
-- v0-5-8: Adding ignore order of unhashables support
-- v0-5-7: Adding ignore order support
-- v0-5-6: Adding slots support
-- v0-5-5: Adding loop detection
+## Changelog
+- See https://github.com/pivotal-energy-solutions/deepdiff/release
 
-##Author
+## Original Author
 
 Seperman
-
 Github:  <https://github.com/seperman>
 Linkedin:  <http://www.linkedin.com/in/sepehr>
 ZepWorks:   <http://www.zepworks.com>
+
 
 Thanks to:
 brbsix for initial Py3 porting
