@@ -1,9 +1,5 @@
 # deepdiff
 
-![Downloads](https://img.shields.io/pypi/dm/pivotal-deepdiff.svg?style=flat)
-![Python Versions](https://img.shields.io/pypi/pyversions/pivotal-deepdiff.svg?style=flat)
-![License](https://img.shields.io/pypi/l/deepdiff.svg?version=latest)
-
 Deep Difference of dictionaries, iterables, strings and other objects. It will recursively look for all the changes.
 Tested on Python 2.7 and 3.4
 
