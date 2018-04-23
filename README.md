@@ -1,4 +1,4 @@
-# deepdiff v 0.6.1
+# deepdiff
 
 ![Downloads](https://img.shields.io/pypi/dm/pivotal-deepdiff.svg?style=flat)
 ![Python Versions](https://img.shields.io/pypi/pyversions/pivotal-deepdiff.svg?style=flat)
