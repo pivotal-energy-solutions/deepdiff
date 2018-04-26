@@ -184,6 +184,6 @@ setup(
     project_urls={  # Optional
         'Bug Reports': '{}/issues'.format(base_url),
         'Say Thanks!': 'https://saythanks.io/to/rh0dium',
-        'Source': 'https://github.com/seperman/deepdiff',
+        'Original Source': 'https://github.com/seperman/deepdiff',
     },
 )
